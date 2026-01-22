@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+
+    <!-- Bootstrap CSS -->
+    <link 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+      rel="stylesheet"
+    >
+
+    <!-- Bootstrap JS (for Toast) -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+      defer>
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            border-radius: 12px;
+        }
+        .short-url-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 520px;">
+        <h3 class="text-center mb-4">🔗 URL Shortener</h3>
+
+        <form action="/" method="post" class="d-flex gap-2">
+            <input 
+                required 
+                placeholder="Enter long URL..." 
+                type="url" 
+                name="originalUrl" 
+                class="form-control"
+            >
+            <button class="btn btn-success">Shrink</button>
+        </form>
+
+        <% if (shortUrl) { %>
+            <div class="mt-4">
+                <p class="fw-semibold mb-2">Your short link:</p>
+
+                <div class="d-flex align-items-center gap-2">
+                    <div class="short-url-box flex-grow-1">
+                        <a 
+                          id="shortUrlText"
+                          href="/<%= shortUrl %>" 
+                          target="_blank"
+                          class="text-decoration-none"
+                        >
+                            http://localhost:3000/<%= shortUrl %>
+                        </a>
+                    </div>
+
+                    <button 
+                      class="btn btn-outline-primary"
+                      onclick="copyToClipboard()"
+                      type="button"
+                    >
+                        Copy
+                    </button>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="copyToast" class="toast align-items-center text-bg-success border-0">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ✅ Short URL copied to clipboard!
+                </div>
+                <button 
+                  type="button" 
+                  class="btn-close btn-close-white me-2 m-auto" 
+                  data-bs-dismiss="toast">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const urlText = document.getElementById('shortUrlText').innerText;
+            navigator.clipboard.writeText(urlText);
+
+            const toastEl = document.getElementById('copyToast');
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    </script>
+
+</body>
+</html>
