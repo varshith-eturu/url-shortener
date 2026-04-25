@@ -5,7 +5,7 @@ A simple and efficient URL Shortener built with Node.js, Express, and MongoDB.
 Convert long, messy links into short, shareable URLs in seconds.
 
 🌍 **Live Demo:**  
-https://url-shortener-1-qksx.onrender.com/
+https://url-shortener-cd7q.onrender.com
 
 ---
 
